@@ -9,8 +9,8 @@ body {
 .grid-container {
     display: flex;
     flex-wrap: wrap;
-    max-width: 288px;
-    max-height: 288px;
+    width: 288px;
+    height: 288px;
 }
 
 .box { 
@@ -20,19 +20,47 @@ body {
     background-color: antiquewhite;
 }
 
+.box:hover, .spinner:hover, .midButton:hover {
+    background-color: grey;
+}
+
 .etch-body {
     display: flex;
     flex-direction: column;
-    align-items: center;
     justify-content: center;
     height: fit-content;
     width: fit-content;
-    padding: 30px 50px;
+    padding: 10px 25px;
     background-color: red;
-    border-radius: 15px;
+    border-radius: 20px;
 }  
 
 .etch-title {
+    display: flex;
+    justify-content: center;
     color: goldenrod;
     font-family: 'Brush Script MT', cursive;
+}
+
+.spinner {
+    background-color: antiquewhite;
+    height: 60px;
+    width: 60px;
+    border-radius: 50%;
+    border: solid black 1px;
+    font-weight: bold;
+}
+
+#button-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+}
+
+.midButton {
+    background-color: goldenrod;
+    border-radius: 5px;
+    border: solid 1px black;
 }
