@@ -18,11 +18,8 @@ etchBody.appendChild(gridContainer);
 etchBody.appendChild(buttonContainer);
 document.body.appendChild(etchBody);
 
-for(let i = 0; i < 16; i++) {
-    for (let x = 0; x < 16; x++) {
-        makeBox(); 
-    }
-}
+makeBox(16);
+
 //Event listeners to make our buttons work as intended
 const erase = document.getElementById('eraser');
 erase.addEventListener("click", () => {
@@ -46,8 +43,16 @@ const eraseAll = document.getElementById('erase-all');
 eraseAll.addEventListener('click', () => {
     boxes.forEach((box) => {
         box.style.background = 'antiquewhite';
-    })
-})
+    });
+});
+
+const resize = document.getElementById('resize');
+resize.addEventListener('click', () => {
+    let size = prompt();
+    let newHW = gridMath(size);
+    resetBool();
+    makeBox(size);
+});
 
 //Event listeners to check if we are holding mouse down
 const boxes = document.querySelectorAll(".box");
@@ -70,10 +75,17 @@ boxes.forEach((box) => {
 
 
 //Functions to make the grid, color and reset the buttons
-function makeBox() {
-    const box = document.createElement("div");
-    box.className = "box";
-    gridContainer.appendChild(box);
+function makeBox(size) {
+    gridContainer.innerHTML = "";
+    for(let i = 0; i < size; i++) {
+        for (let x = 0; x < size; x++) {
+            const box = document.createElement("div");
+            box.className = "box";
+            box.style.width = gridMath(size);
+            box.style.height = gridMath(size);
+            gridContainer.appendChild(box); 
+        }
+    }
 }
 
 function coloring(box) { 
@@ -112,3 +124,11 @@ function randomInteger(max) {
     return Math.floor(Math.random()*(max + 1));
 }
 
+function gridMath(size) {
+    let totalCells = size * size;
+    let gridSize = 640 * 640;
+    let totalSpace = gridSize / totalCells;
+    let hw = Math.round(Math.sqrt(totalSpace)) + "px";
+
+    return hw;
+}
