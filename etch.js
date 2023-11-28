@@ -40,6 +40,7 @@ rainbow.addEventListener('click', () => {
 });
 
 const eraseAll = document.getElementById('erase-all');
+const boxes = document.querySelectorAll(".box");
 eraseAll.addEventListener('click', () => {
     boxes.forEach((box) => {
         box.style.background = 'antiquewhite';
@@ -48,31 +49,15 @@ eraseAll.addEventListener('click', () => {
 
 const resize = document.getElementById('resize');
 resize.addEventListener('click', () => {
-    let size = prompt();
-    let newHW = gridMath(size);
-    resetBool();
-    makeBox(size);
+    let size = prompt("Enter the new size");
+    size = parseInt(size); // Convert the input to an integer
+    if (!isNaN(size) && size > 0 && size <= 100) { // Check if the input is a valid number
+        resetBool();
+        makeBox(size);
+    } else {
+        alert("Please enter a valid positive number below 100 for the size.");
+    }
 });
-
-//Event listeners to check if we are holding mouse down
-const boxes = document.querySelectorAll(".box");
-boxes.forEach((box) => {
-    box.addEventListener("mousedown", () => {
-        isDown = true;
-    });
-    box.addEventListener("mouseup", () => {
-        isDown = false;
-    });
-    box.addEventListener("mouseover", () => {
-        if(isDown){
-            coloring(box);
-        }
-    });
-    box.addEventListener("click", () => {
-            coloring(box);
-    });
-});
-
 
 //Functions to make the grid, color and reset the buttons
 function makeBox(size) {
@@ -86,6 +71,29 @@ function makeBox(size) {
             gridContainer.appendChild(box); 
         }
     }
+    const boxes = document.querySelectorAll(".box");
+    boxes.forEach((box) => {
+        box.addEventListener("mousedown", () => {
+            isDown = true;
+        });
+        box.addEventListener("mouseup", () => {
+            isDown = false;
+        });
+        box.addEventListener("mouseover", () => {
+            if(isDown){
+                coloring(box);
+            }
+        });
+        box.addEventListener("click", () => {
+                coloring(box);
+        });
+    });
+    const eraseAll = document.getElementById('erase-all');
+    eraseAll.addEventListener('click', () => {
+        boxes.forEach((box) => {
+            box.style.background = 'antiquewhite';
+        });
+    });
 }
 
 function coloring(box) { 
@@ -129,6 +137,5 @@ function gridMath(size) {
     let gridSize = 640 * 640;
     let totalSpace = gridSize / totalCells;
     let hw = Math.round(Math.sqrt(totalSpace)) + "px";
-
     return hw;
-}
+}  

@@ -13,6 +13,7 @@ body {
     justify-content: center;
     max-width: 660px;
     max-height: 660px;
+    overflow: hidden;
 }
 
 .box { 
